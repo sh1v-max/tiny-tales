@@ -47,10 +47,10 @@ const fetchData = () => {
   };
 ```
 
-`fetchData` function: This function is responsible for fetching the data from the URL https://www.terriblytinytales.com/test.txt using the axios library. It then processes the received text by converting it to lowercase, removing non
-alphanumeric characters, and splitting it into words. It calculates the frequency of each word and stores it in `wordFreq` object. The `wordFreq` object is then sorted in descending order of word
-frequency, and the top 20 words are extracted and stored in the `top20Words` array. Finally, the histogramData state is updated with `top20Words`, and csvData is updated with the CSV-formatted
-string.
+* `fetchData` function: This function is responsible for fetching the data from the URL https://www.terriblytinytales.com/test.txt using the axios library. It then processes the received text by
+converting it to lowercase, removing non alphanumeric characters, and splitting it into words. It calculates the frequency of each word and stores it in `wordFreq` object. The `wordFreq` object
+is then sorted in descending order of word frequency, and the top 20 words are extracted and stored in the `top20Words` array. Finally, the histogramData state is updated with `top20Words`, and
+csvData is updated with the CSV-formatted string.
 
 
 ```
@@ -68,8 +68,8 @@ string.
 ```
 
 
-`handleExport` function: This function is triggered when the "Download CSV file" button is clicked. It creates a Blob object with the CSV data and creates a URL for the object. Then, it creates a
-hidden `a` element, sets the URL and the file name for downloading, appends it to the document body, triggers a click event on the link, and removes the link from the document body.
+* `handleExport` function: This function is triggered when the "Download CSV file" button is clicked. It creates a Blob object with the CSV data and creates a URL for the object. Then, it creates
+a hidden `a` element, sets the URL and the file name for downloading, appends it to the document body, triggers a click event on the link, and removes the link from the document body.
 
 ```
 return (
@@ -98,8 +98,9 @@ return (
   );
 ```
 
-`Render`: The render function returns JSX, which defines the structure and behavior of the component. It consists of a `div` element containing a "Submit" button and conditional rendering of the
-bar chart and the "Download CSV file" button. When the "Submit" button is clicked, it calls the` fetchData` function. If the `histogramData` state is not empty, it renders the `BarChart` component from Recharts, passing the `histogramData` as the data prop. It also renders a "Download CSV file" button, which triggers the `handleExport` function when clicked.
+* `Render`: The render function returns JSX, which defines the structure and behavior of the component. It consists of a `div` element containing a "Submit" button and conditional rendering of
+the bar chart and the "Download CSV file" button. When the "Submit" button is clicked, it calls the` fetchData` function. If the `histogramData` state is not empty, it renders the `BarChart`
+component from Recharts, passing the `histogramData` as the data prop. It also renders a "Download CSV file" button, which triggers the `handleExport` function when clicked.
 
 ## dependencies installed:-
 Make sure you have the `react`, `axios`, and `recharts` installed and that you've set up the React environment properly to use this component.
