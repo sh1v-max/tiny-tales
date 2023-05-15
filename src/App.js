@@ -21,8 +21,8 @@ function App() {
         const data = response.data;
         const words = data
           .toLowerCase()
-          .replace(/[^\w\s]/g, "") // remove all special characters
-          .split(/\s+/); // split by whitespace
+          .replace(/[^\w\s]/g, "") 
+          .split(/\s+/); 
         const wordFreq = {};
         words.forEach((word) => {
           if (!wordFreq[word]) {
@@ -64,8 +64,8 @@ function App() {
       {histogramData.length > 0 && (
         <>
           <BarChart
-            width={800}
-            height={400}
+            width={1200}
+            height={500}
             data={histogramData}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           >
@@ -74,9 +74,9 @@ function App() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="count" fill="#8884d8" />
+            <Bar dataKey="count" fill="#34ebd8" />
           </BarChart>
-          <button onClick={handleExport}>Export</button>
+          <button onClick={handleExport}>Download CSV file</button>
         </>
       )}
     </div>
