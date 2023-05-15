@@ -1,4 +1,4 @@
-# In this project i have been implemented react to do following task:- 
+# In this project i have implemented Reactjs to do following task:- 
 
 * 1.On first load, only has a Submit button
 * 2.On clicking on Submit, it will fetch the contents of https://www.terriblytinytales.com/test.txt
