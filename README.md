@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# The project was all about creating:- 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* 1.On first load, only has a Submit button
+* 2.On clicking on Submit, it will fetch the contents of https://www.terriblytinytales.com/test.txt
+* 3.Parse the content and find the frequency of occurrence of each word (some words will occur only once, some   twice and so on, and some will occur N times)
+* 4.Then on the frontend, plot a histogram of the 20 most occurring words.
+* 5.Also build an "Export" button, which when clicked will download a CSV file of the histogram data.
+X-axis = top 20 words with highest occurrence Y-axis = how many times they occurred in the file
 
-## Available Scripts
+ ReactJs offers us a great variety of libraries, plug-ins and modules for us to work upon.
+ReactJS is a JavaScript library used for building user interfaces for web applications. It was developed by Facebook and is widely used by developers to create dynamic and interactive UI components. React allows developers to build reusable UI components and efficiently update and render them when the underlying data changes.
 
-In the project directory, you can run:
+React follows a component-based architecture, where the UI is broken down into small, self-contained components. Each component can have its own state, properties, and lifecycle methods. React uses a virtual DOM (Document Object Model) to efficiently update and render only the necessary parts of the user interface, resulting in better performance.
 
-### `npm start`
+## Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Bar } from 'react-chartjs-2';
+import { saveAs } from 'file-saver';
+import Chart from 'chart.js/auto';
+import Style from './style.css';
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This section imports the necessary dependencies for the code. It imports React, the useState hook for managing component state, axios for making HTTP requests, react-chartjs-2 for rendering the bar chart, file-saver for saving files, and the necessary styles.
 
-### `npm test`
+```
+const App = () => {
+const [chartData, setChartData] = useState(null);
+const [wordCount, setWordCount] = useState(null);
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The App component is defined as an arrow function. It initializes two state variables, 'chartData' and 'wordCount', using the 'useState' hook. The initial values are set to 'null'.
+```
+const fetchData = async () => {
+  try {
+    const response = await axios.get('https://www.terriblytinytales.com/test.txt');
+    const content = response.data;
+    const words = content.split(/\s+/);
+    const wordCountMap = {};
+    words.forEach(word => {
+      const cleanedWord = word.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+      if (cleanedWord !== '') {
+        wordCountMap[cleanedWord] = (wordCountMap[cleanedWord] || 0) + 1;
+     }
+    });
 
-### `npm run build`
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The 'fetchData' function is an asynchronous function that is triggered when the "Submit" button is clicked. It uses the 'axios.get' method to fetch data from the provided URL (https://www.terriblytinytales.com/test.txt).
+After receiving the response, it extracts the content from the response and splits it into an array of words. Then, it creates a 'wordCountMap' object to store the count of each word. It iterates over the words, cleans them by converting to lowercase and removing non-alphanumeric characters, and updates the word count in the 'wordCountMap'.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+const sortedWords = Object.keys(wordCountMap).sort((a, b) => wordCountMap[b] - wordCountMap[a]);
+const labels = sortedWords.slice(0, 20);
+const data = labels.map(word => wordCountMap[word]);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const chartData = {
+  labels,
+  datasets: [
+   {
+      label: 'Word Frequency',
+      data,
+      backgroundColor: 'rgba(59, 121, 127 )',
+    },
+  ],
+};
 
-### `npm run eject`
+setChartData(chartData);
+setWordCount(wordCountMap);
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This section generates the data required for the bar chart. It first sorts the words in descending order based on their frequency count. It selects the top 20 words from the sorted list as labels and retrieves their corresponding counts as data.
+The chartData object is created with the labels and datasets properties. The labels contain the words, and the datasets array contains an object with the label
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# To run the code:-
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+npm start
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
