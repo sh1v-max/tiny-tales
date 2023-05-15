@@ -84,3 +84,89 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+// import React, { useState } from "react";
+// import axios from "axios";
+
+// function App() {
+//   const [wordCounts, setWordCounts] = useState([]);
+//   const [csvData, setCsvData] = useState("");
+
+//   const handleFetchData = () => {
+//     axios
+//       .get("https://www.terriblytinytales.com/test.txt")
+//       .then((response) => {
+//         const data = response.data;
+//         const words = data
+//           .toLowerCase()
+//           .replace(/[^\w\s]/g, "")
+//           .split(/\s+/);
+//         const wordCountMap = {};
+//         words.forEach((word) => {
+//           wordCountMap[word] = (wordCountMap[word] || 0) + 1;
+//         });
+//         const wordCountsArray = Object.keys(wordCountMap).map((word) => ({
+//           word,
+//           count: wordCountMap[word],
+//         }));
+//         wordCountsArray.sort((a, b) => b.count - a.count);
+//         setWordCounts(wordCountsArray.slice(0, 20));
+//         setCsvData(
+//           "Word,Count\n" +
+//             wordCountsArray
+//               .slice(0, 20)
+//               .map((entry) => `${entry.word},${entry.count}`)
+//               .join("\n")
+//         );
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   };
+
+//   const handleExport = () => {
+//     const blob = new Blob([csvData], { type: "text/csv" });
+//     const url = URL.createObjectURL(blob);
+//     const link = document.createElement("a");
+//     link.href = url;
+//     link.download = "histogram.csv";
+//     document.body.appendChild(link);
+//     link.click();
+//     document.body.removeChild(link);
+//   };
+
+//   return (
+//     <div>
+//       <button onClick={handleFetchData}>Submit</button>
+//       {wordCounts.length > 0 && (
+//         <>
+//           <h2>Top 20 Most Frequent Words</h2>
+//           <table>
+//             <thead>
+//               <tr>
+//                 <th>Word</th>
+//                 <th>Count</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {wordCounts.map((entry) => (
+//                 <tr key={entry.word}>
+//                   <td>{entry.word}</td>
+//                   <td>{entry.count}</td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//           <button onClick={handleExport}>Export</button>
+//         </>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default App;
